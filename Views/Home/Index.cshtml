@@ -1,0 +1,77 @@
+﻿@model MVC_Calendar.ViewModels.CalendarVM
+
+@{
+    ViewBag.Title = "Calendar";
+}
+
+<h2>Welcome @Model.UserID</h2>
+
+<div>
+    <table class="grid">
+        <tbody>
+            <tr>
+                <td><div class="weekButton">prev</div></td>
+                <td><div class="weekDayHeaderLabel">Poniedziałek</div></td>
+                <td><div class="weekDayHeaderLabel">Wtorek</div></td>
+                <td><div class="weekDayHeaderLabel">Środa</div></td>
+                <td><div class="weekDayHeaderLabel">Czwartek</div></td>
+                <td><div class="weekDayHeaderLabel">Piątek</div></td>
+                <td><div class="weekDayHeaderLabel">Sobota</div></td>
+                <td><div class="weekDayHeaderLabel">Niedziela</div></td>
+                <td><div class="weekButton">next</div></td>
+            </tr>
+
+            @foreach (var week in Model.Weeks)
+            {
+                <tr>
+                    <td class="gridCell">
+                        <div class="weekHeaderLabel">
+                            @Html.ValueFor(m => week.Number, "W{0}")
+                            <br />
+                            @Html.ValueFor(m => week.Year)
+                        </div>
+                    </td>
+
+                    @foreach (var day in week.Days)
+                    {
+                        <td class="gridCell">
+                            <div>
+                                <div class="dayHeader @(day.Date.Equals(Model.Today) ? "todayCell" : "")">
+                                    @Html.ValueFor(m => day.DayText)
+                                </div>
+                                <div class="appointmentList gridCell">
+                                    @foreach (var appointment in day.Appointments)
+                                    {
+                                        <div class="appointmentItem">
+                                            @Html.ValueFor(m => appointment.StartTime, "{0:hh\\:mm} - ")
+                                            @Html.ValueFor(m => appointment.EndTime, "{0:hh\\:mm}")
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                    }
+                    <td class="gridCell">
+                        <div class="weekDayHeaderLabel">
+                            @Html.ValueFor(m => week.Number, "W{0}")
+                            <br />
+                            @Html.ValueFor(m => week.Year)
+                        </div>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td><div class="weekButton">prev</div></td>
+                <td><div class="weekDayHeaderLabel">Poniedziałek</div></td>
+                <td><div class="weekDayHeaderLabel">Wtorek</div></td>
+                <td><div class="weekDayHeaderLabel">Środa</div></td>
+                <td><div class="weekDayHeaderLabel">Czwartek</div></td>
+                <td><div class="weekDayHeaderLabel">Piątek</div></td>
+                <td><div class="weekDayHeaderLabel">Sobota</div></td>
+                <td><div class="weekDayHeaderLabel">Niedziela</div></td>
+                <td><div class="weekButton">next</div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

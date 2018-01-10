@@ -1,0 +1,114 @@
+﻿.body-content 
+{
+    font-family: 'Times New Roman';
+    padding: 20px;
+}
+
+/*.dl-horizontal dt { white-space: normal; }
+
+input,
+select,
+textarea { max-width: 280px; }*/
+
+.weekDayHeaderLabel 
+{
+    text-align: center;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    margin: 3px;
+    background-color: #AAAAFF;
+    color: #000066;
+    height: 100%;
+}
+
+.weekHeaderLabel 
+{
+    text-align: center;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    margin: 3px;
+    background-color: #AAAAFF;
+    color: #000066;
+    height: 100%;
+}
+
+.weekButton
+{
+    text-align: center;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    margin: 3px;
+    background-color: #CCFFFF;
+    color: #000066;
+}
+
+.weekButton:hover
+{
+    background-color: #009999;
+    border-color: darkgray;
+}
+
+.weekButton:active
+{
+    background-color: #006666;
+    border-color: black;
+}
+
+.grid 
+{
+    width: 100%;
+}
+
+.grid td 
+{
+    vertical-align: top;
+    margin: 3px;
+}
+
+.gridHeaderCell 
+{
+    height: 2em;
+    max-height: 2em;
+}
+
+.gridCell 
+{
+    height: 8em;
+    max-height: 8em;
+    width: 140px;
+}
+
+.dayHeader
+{
+    text-align: center;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.todayCell
+{
+    background-color: #FFFF66;
+}
+
+.appointmentsList 
+{
+    overflow-y: scroll;
+}
+
+.appointmentItem 
+{
+    border-width: 1px;
+    border-color: #009999;
+    border-radius: 3px;
+    border-style: solid;
+    margin: 1px;
+    color: #009999;
+}
