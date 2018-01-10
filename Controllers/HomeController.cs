@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MVC_Calendar.Controllers
@@ -16,15 +13,15 @@ namespace MVC_Calendar.Controllers
     {
         private Storage _storage = new Storage();
 
-        public ActionResult Index()
+        public ActionResult Index(DateTime? date)
         {
             Database.SetInitializer<StorageContext>(null);
             // so far
-            String userID = "janusz"; 
+            String userID = "baby"; 
             var today = DateTime.Today;
-            var firstDate = CalendarService.GetFirstDateOfWeek(today);
+            var firstDate = date ?? CalendarService.GetFirstDateOfWeek(today);
             var weeks = GetWeeks(firstDate, userID);
-            var model = new MVC_Calendar.ViewModels.CalendarVM
+            var model = new CalendarVM
             {
                 FirstDay = firstDate,
                 Today = today,
@@ -34,6 +31,16 @@ namespace MVC_Calendar.Controllers
             return View(model);
         }
 
+        public ActionResult PrevWeek(DateTime day)
+        {
+            return RedirectToAction("Index", new { date = day.AddDays(-7) });
+        }
+
+        public ActionResult NextWeek(DateTime day)
+        {
+            return RedirectToAction("Index", new { date = day.AddDays(7) });
+        }
+
         private List<Week> GetWeeks(DateTime day, String userID)
         {
             List<Week> weeks = new List<Week>();
@@ -41,12 +48,12 @@ namespace MVC_Calendar.Controllers
             {
                 var week = new Week
                 {
-                    Year = day.Year,
                     Number = CalendarService.GetWeekOfYear(day),
+                    Year = CalendarService.GetYear(day),
                     Days = GetDays(day, userID)
                 };
                 weeks.Add(week);
-                day.AddDays(7);
+                day = day.AddDays(7);
             }
             return weeks;
         }
@@ -56,18 +63,18 @@ namespace MVC_Calendar.Controllers
             List<Day> days = new List<Day>();
             for(int i = 0; i < 7; ++i)
             {
-                day.AddDays(i);
                 var newDay = new Day
                 {
                     Date = day.Date,
                     Appointments = GetAppointments(day, userID)
                 };
-                Debug.WriteLine("xD: " + newDay.Appointments.Count);
+                days.Add(newDay);
+                day = day.AddDays(1);
             }
             return days;
         }
 
-        private List<Appointment> GetAppointments(DateTime day, string userID)
+        private List<Appointment> GetAppointments(DateTime day, String userID)
         {
             return _storage.GetDayAppointments(userID, day);
         }

@@ -9,23 +9,18 @@
 
 namespace MVC_Calendar.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    
+
     public partial class Attendance
     {
         [Key]
         public System.Guid AttendanceID { get; set; }
-        [ForeignKey("Appointment")]
         public System.Guid AppointmentID { get; set; }
-        [ForeignKey("Person")]
         public System.Guid PersonID { get; set; }
         public bool Accepted { get; set; }
         [Timestamp]
         public byte[] timestamp { get; set; }
-    
+
         public virtual Appointment Appointment { get; set; }
         public virtual Person Person { get; set; }
     }

@@ -4,18 +4,18 @@
     padding: 20px;
 }
 
-/*.dl-horizontal dt { white-space: normal; }
+/*.dl-horizontal dt { white-space: normal; } */
 
 input,
 select,
-textarea { max-width: 280px; }*/
+textarea { max-width: 280px; }
 
 .weekDayHeaderLabel 
 {
     text-align: center;
     border-width: 1px;
     border-color: lightgray;
-    border-style: solid;
+    border-style: solid;    
     border-radius: 3px;
     margin: 3px;
     background-color: #AAAAFF;
@@ -67,7 +67,7 @@ textarea { max-width: 280px; }*/
 
 .grid td 
 {
-    vertical-align: top;
+    vertical-align: central;
     margin: 3px;
 }
 
