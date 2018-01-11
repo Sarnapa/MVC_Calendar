@@ -17,13 +17,11 @@ namespace MVC_Calendar
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.bundle.js",
+                      "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-grid.css",
-                      "~/Content/bootstrap-reboot.css",
                       "~/Content/site.css"));
         }
     }

@@ -19,19 +19,22 @@ namespace MVC_Calendar.Models
         public Appointment()
         {
             this.Attendances = new HashSet<Attendance>();
+            AppointmentID = Guid.NewGuid();
         }
 
         [Key]
         public System.Guid AppointmentID { get; set; }
-        [MaxLength(16), Required]
+        [StringLength(16, ErrorMessage = "Title can be no longer than 16 characters."), 
+        Required(ErrorMessage = "Please enter appointment title.")]
         public string Title { get; set; }
-        [MaxLength(50), Required]
+        [StringLength(50, ErrorMessage = "Title can be no longer than 50 characters."), 
+        Required(ErrorMessage = "Please enter appointment description.")]
         public string Description { get; set; }
         [Column(TypeName = "date"), Required]
         public System.DateTime AppointmentDate { get; set; }
-        [Column(TypeName = "time"), Required]
+        [Column(TypeName = "time"), Required(ErrorMessage = "Please enter start time field.")]
         public System.TimeSpan StartTime { get; set; }
-        [Column(TypeName = "time"), Required]
+        [Column(TypeName = "time"), Required(ErrorMessage = "Please enter end time field.")]
         public System.TimeSpan EndTime { get; set; }
         [Timestamp]
         public byte[] timestamp { get; set; }

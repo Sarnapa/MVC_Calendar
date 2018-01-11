@@ -9,10 +9,16 @@
 
 namespace MVC_Calendar.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Attendance
     {
+        public Attendance()
+        {
+            AttendanceID = Guid.NewGuid();
+        }
+
         [Key]
         public System.Guid AttendanceID { get; set; }
         public System.Guid AppointmentID { get; set; }

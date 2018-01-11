@@ -12,8 +12,8 @@ namespace MVC_Calendar.Models
             using (var db = new StorageContext())
             {
                 var dayAllAppointments = db.Appointments.Where(e => e.AppointmentDate == day).ToList();
-                return dayAllAppointments.Where(e => e.Attendances.Where(a => a.Person.UserID == userID).ToList().Count != 0).ToList();
-                //return db.Appointments.Where(e => e.AppointmentDate == day && e.Attendances.Where(a => a.Person.UserID == userID).ToList().Count != 0).ToList();
+                var appointments = dayAllAppointments.Where(e => e.Attendances.Where(a => a.Person.UserID == userID).ToList().Count != 0).ToList();
+                return appointments.OrderBy(a => a.StartTime).ToList();
             }
         }
 

@@ -22,11 +22,14 @@ namespace MVC_Calendar.Models
 
         [Key]
         public System.Guid PersonID { get; set; }
-        [MaxLength(16), Required]
+        [StringLength(16, ErrorMessage = "First name can be no longer than 16 characters."),
+        Required(ErrorMessage = "Please enter first name.")]
         public string FirstName { get; set; }
-        [MaxLength(16), Required]
+        [StringLength(16, ErrorMessage = "Last name can be no longer than 16 characters."),
+        Required(ErrorMessage = "Please enter last name.")]
         public string LastName { get; set; }
-        [MaxLength(10), Required]
+        [StringLength(10, ErrorMessage = "User ID can be no longer than 10 characters."),
+        Required(ErrorMessage = "Please enter user ID.")]
         public string UserID { get; set; }
         [Timestamp]
         public byte[] timestamp { get; set; }

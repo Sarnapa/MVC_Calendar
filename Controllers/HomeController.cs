@@ -16,12 +16,14 @@ namespace MVC_Calendar.Controllers
 
         public ActionResult Index(DateTime? date)
         {
+            // to disable migration
             Database.SetInitializer<StorageContext>(null);
             // so far
-            String userID = "baby"; 
+            String userID = "janusz";
+            Session["userID"] = userID;
             var today = DateTime.Today;
             var firstDate = date ?? CalendarService.GetFirstDateOfWeek(today);
-            var weeks = GetWeeks(firstDate, userID);
+            var weeks = GetWeeks(firstDate);
             var model = new CalendarVM
             {
                 FirstDay = firstDate,
@@ -52,6 +54,20 @@ namespace MVC_Calendar.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAppointment([Bind(Include = "Title, Description, StartTime, EndTime")]Appointment appointment, DateTime day)
+        {
+            if (ModelState.IsValid)
+            {
+                appointment.AppointmentDate = day;
+                _storage.CreateAppointment(Session["userID"].ToString(), appointment);
+                return RedirectToAction("Index");
+            }
+            ViewBag.day = day;
+            return View();
+        }
+
         public ActionResult EditAppointment(Guid? appointmentID)
         {
             if(appointmentID == null)
@@ -66,7 +82,7 @@ namespace MVC_Calendar.Controllers
             return View(appointment);
         }
 
-        private List<Week> GetWeeks(DateTime day, String userID)
+        private List<Week> GetWeeks(DateTime day)
         {
             List<Week> weeks = new List<Week>();
             for(int i = 0; i < 4; ++i)
@@ -75,7 +91,7 @@ namespace MVC_Calendar.Controllers
                 {
                     Number = CalendarService.GetWeekOfYear(day),
                     Year = CalendarService.GetYear(day),
-                    Days = GetDays(day, userID)
+                    Days = GetDays(day)
                 };
                 weeks.Add(week);
                 day = day.AddDays(7);
@@ -83,7 +99,7 @@ namespace MVC_Calendar.Controllers
             return weeks;
         }
 
-        private List<Day> GetDays(DateTime day, String userID)
+        private List<Day> GetDays(DateTime day)
         {
             List<Day> days = new List<Day>();
             for(int i = 0; i < 7; ++i)
@@ -91,7 +107,7 @@ namespace MVC_Calendar.Controllers
                 var newDay = new Day
                 {
                     Date = day.Date,
-                    Appointments = GetAppointments(day, userID)
+                    Appointments = GetAppointments(day)
                 };
                 days.Add(newDay);
                 day = day.AddDays(1);
@@ -99,9 +115,9 @@ namespace MVC_Calendar.Controllers
             return days;
         }
 
-        private List<Appointment> GetAppointments(DateTime day, String userID)
+        private List<Appointment> GetAppointments(DateTime day)
         {
-            return _storage.GetDayAppointments(userID, day);
+            return _storage.GetDayAppointments(Session["userID"].ToString(), day);
         }
 
     }
