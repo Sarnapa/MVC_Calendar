@@ -6,72 +6,67 @@
 
 <h2>Welcome @Model.UserID</h2>
 
-<div class="container-fluid">
-    <table class="grid">
-        <tbody>
+<table class="calendar">
+    <tbody>
+        <tr>
+            <td class="weekButton">@Html.ActionLink("prev", "PrevWeek", new { day = Model.FirstDay })</td>
+            <td class="weekDayHeaderLabel">Monday</td>
+            <td class="weekDayHeaderLabel">Tuesday</td>
+            <td class="weekDayHeaderLabel">Wednesday</td>
+            <td class="weekDayHeaderLabel">Thursday</td>
+            <td class="weekDayHeaderLabel">Friday</td>
+            <td class="weekDayHeaderLabel">Saturday</td>
+            <td class="weekDayHeaderLabel">Sunday</td>
+            <td class="weekButton">@Html.ActionLink("prev", "PrevWeek", new { day = Model.FirstDay })</td>
+        </tr>
+
+        @foreach (var week in Model.Weeks)
+        {
             <tr>
-                <td><div class="weekButton">@Html.ActionLink("prev", "PrevWeek", new { day = Model.FirstDay })</div></td>
-                <td><div class="weekDayHeaderLabel">Monday</div></td>
-                <td><div class="weekDayHeaderLabel">Tuesday</div></td>
-                <td><div class="weekDayHeaderLabel">Wednesday</div></td>
-                <td><div class="weekDayHeaderLabel">Thursday</div></td>
-                <td><div class="weekDayHeaderLabel">Friday</div></td>
-                <td><div class="weekDayHeaderLabel">Saturday</div></td>
-                <td><div class="weekDayHeaderLabel">Sunday</div></td>
-                <td><div class="weekButton">@Html.ActionLink("prev", "PrevWeek", new { day = Model.FirstDay })</div></td>
-            </tr>
+                <td class="weekHeaderLabel">
+                    @Html.ValueFor(m => week.Number, "W{0}")
+                    <br />
+                    @Html.ValueFor(m => week.Year)
+                </td>
 
-            @foreach (var week in Model.Weeks)
-            {
-                <tr>
-                    <td class="gridCell">
-                        <div class="weekHeaderLabel">
-                            @Html.ValueFor(m => week.Number, "W{0}")
-                            <br />
-                            @Html.ValueFor(m => week.Year)
-                        </div>
-                    </td>
-
-                    @foreach (var day in week.Days)
-                    {
-                        <td class="gridCell">
-                            <div>
-                                <div class="dayHeader @(day.Date.Equals(Model.Today) ? "todayCell" : "")">
-                                    @Html.ValueFor(m => day.DayText)
-                                </div>
-                                <div class="appointmentList gridCell">
-                                    @foreach (var appointment in day.Appointments)
-                                    {
-                                        <div class="appointmentItem">
-                                            @Html.ValueFor(m => appointment.StartTime, "{0:hh\\:mm} - ")
-                                            @Html.ValueFor(m => appointment.EndTime, "{0:hh\\:mm}")
-                                        </div>
-                                    }
-                                </div>
+                @foreach (var day in week.Days)
+                {
+                    <td class="dayCell @(day.Date.Equals(Model.Today) ? "todayCell" : "")">
+                        <div class="dayCellContainer" onclick="location.href='@Url.Action("AddAppointment", "Home", new { day = day.Date})'">
+                            <div class="dayHeader">
+                                @Html.ValueFor(m => day.DayText)
                             </div>
-                        </td>
-                    }
-                    <td class="gridCell">
-                        <div class="weekDayHeaderLabel">
-                            @Html.ValueFor(m => week.Number, "W{0}")
-                            <br />
-                            @Html.ValueFor(m => week.Year)
+                            <div class="appointmentsList">
+                                @foreach (var appointment in day.Appointments)
+                                {
+                                    <div class="appointmentItem" onclick="location.href='@Url.Action("EditAppointment", "Home", new { appointmentID = appointment.AppointmentID})'">
+                                        @Html.ValueFor(m => appointment.StartTime, "{0:hh\\:mm} - ")
+                                        @Html.ValueFor(m => appointment.EndTime, "{0:hh\\:mm}")
+                                        @Html.ValueFor(m => appointment.Description)
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </td>
-                </tr>
-            }
-
-            <tr>
-                <td><div class="weekButton">@Html.ActionLink("next", "NextWeek", new { day = Model.FirstDay })</div></td>
-                <td><div class="weekDayHeaderLabel">Monday</div></td>
-                <td><div class="weekDayHeaderLabel">Tuesday</div></td>
-                <td><div class="weekDayHeaderLabel">Wednesday</div></td>
-                <td><div class="weekDayHeaderLabel">Thursday</div></td>
-                <td><div class="weekDayHeaderLabel">Friday</div></td>
-                <td><div class="weekDayHeaderLabel">Saturday</div></td>
-                <td><div class="weekDayHeaderLabel">Sunday</div></td>
-                <td><div class="weekButton">@Html.ActionLink("next", "NextWeek", new { day = Model.FirstDay })</div></td>
+                }
+                <td class="weekDayHeaderLabel">
+                    @Html.ValueFor(m => week.Number, "W{0}")
+                    <br />
+                    @Html.ValueFor(m => week.Year)
+                </td>
             </tr>
-        </tbody>
-    </table>
-</div>
+        }
+
+        <tr>
+            <td class="weekButton">@Html.ActionLink("next", "NextWeek", new { day = Model.FirstDay })</td>
+            <td class="weekDayHeaderLabel">Monday</td>
+            <td class="weekDayHeaderLabel">Tuesday</td>
+            <td class="weekDayHeaderLabel">Wednesday</td>
+            <td class="weekDayHeaderLabel">Thursday</td>
+            <td class="weekDayHeaderLabel">Friday</td>
+            <td class="weekDayHeaderLabel">Saturday</td>
+            <td class="weekDayHeaderLabel">Sunday</td>
+            <td class="weekButton">@Html.ActionLink("next", "NextWeek", new { day = Model.FirstDay })</td>
+        </tr>
+    </tbody>
+</table>

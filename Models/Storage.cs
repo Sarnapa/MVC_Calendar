@@ -17,6 +17,14 @@ namespace MVC_Calendar.Models
             }
         }
 
+        public Appointment GetAppointment(Guid appointmentID)
+        {
+            using (var db = new StorageContext())
+            {
+                return db.Appointments.Find(appointmentID);
+            }     
+        }
+
         public Guid GetPersonID(String userID)
         {
             using (var db = new StorageContext())

@@ -1,14 +1,26 @@
 ﻿.body-content 
 {
     font-family: 'Times New Roman';
-    padding: 20px;
+    padding: 10px;
+    font-size: 1.5vw;
 }
-
-/*.dl-horizontal dt { white-space: normal; } */
 
 input,
 select,
 textarea { max-width: 280px; }
+
+h2
+{
+    font-size: 2.5vw;
+}
+
+.calendar 
+{
+    width: 100%;
+    vertical-align: middle;
+    border-spacing: 3px;
+    border-collapse:separate;
+}
 
 .weekDayHeaderLabel 
 {
@@ -17,10 +29,8 @@ textarea { max-width: 280px; }
     border-color: lightgray;
     border-style: solid;    
     border-radius: 3px;
-    margin: 3px;
     background-color: #AAAAFF;
     color: #000066;
-    height: 100%;
 }
 
 .weekHeaderLabel 
@@ -30,10 +40,8 @@ textarea { max-width: 280px; }
     border-color: lightgray;
     border-style: solid;
     border-radius: 3px;
-    margin: 3px;
     background-color: #AAAAFF;
     color: #000066;
-    height: 100%;
 }
 
 .weekButton
@@ -43,7 +51,6 @@ textarea { max-width: 280px; }
     border-color: lightgray;
     border-style: solid;
     border-radius: 3px;
-    margin: 3px;
     background-color: #CCFFFF;
     color: #000066;
 }
@@ -60,28 +67,24 @@ textarea { max-width: 280px; }
     border-color: black;
 }
 
-.grid 
+.dayCell
 {
-    width: 100%;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 3px;
+    padding: 0px;
 }
 
-.grid td 
+.todayCell
 {
-    vertical-align: central;
-    margin: 3px;
+    border-color: black;
+    background-color: #FFFF66;
 }
 
-.gridHeaderCell 
+.dayCellContainer
 {
-    height: 2em;
-    max-height: 2em;
-}
 
-.gridCell 
-{
-    height: 8em;
-    max-height: 8em;
-    width: 140px;
 }
 
 .dayHeader
@@ -91,16 +94,13 @@ textarea { max-width: 280px; }
     border-color: black;
     border-style: solid;
     border-radius: 3px 3px 0px 0px;
-}
-
-.todayCell
-{
-    background-color: #FFFF66;
+    font-size: 1.2vw;
+    color: #000066;
 }
 
 .appointmentsList 
 {
-    overflow-y: scroll;
+
 }
 
 .appointmentItem 
@@ -109,6 +109,7 @@ textarea { max-width: 280px; }
     border-color: #009999;
     border-radius: 3px;
     border-style: solid;
-    margin: 1px;
+    font-size: 1.1vw;
     color: #009999;
+    margin-top: 1px;
 }

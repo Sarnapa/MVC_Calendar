@@ -41,6 +41,22 @@ namespace MVC_Calendar.Controllers
             return RedirectToAction("Index", new { date = day.AddDays(7) });
         }
 
+        public ActionResult AddAppointment(DateTime day)
+        {
+            ViewBag.day = day;
+            return View();
+        }
+
+        public ActionResult EditAppointment(Guid appointmentID)
+        {
+            Appointment appointment = _storage.GetAppointment(appointmentID);
+            if(appointmentID == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(appointment);
+        }
+
         private List<Week> GetWeeks(DateTime day, String userID)
         {
             List<Week> weeks = new List<Week>();
