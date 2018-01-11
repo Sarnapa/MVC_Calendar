@@ -2,7 +2,8 @@
 {
     font-family: 'Times New Roman';
     padding: 10px;
-    font-size: 1.5vw;
+    font-size: 1.5vmax;
+    overflow: auto;
 }
 
 input,
@@ -11,15 +12,30 @@ textarea { max-width: 280px; }
 
 h2
 {
-    font-size: 2.5vw;
+    font-size: 2vmax;
 }
 
 .calendar 
 {
-    width: 100%;
     vertical-align: middle;
+    margin: auto;
     border-spacing: 3px;
     border-collapse:separate;
+}
+
+tr
+{
+    height: 14vh;
+}
+
+.weekDaysTr
+{
+    height: 6vh;
+}
+
+td
+{
+    width: 12vw;
 }
 
 .weekDayHeaderLabel 
@@ -35,6 +51,7 @@ h2
 
 .weekHeaderLabel 
 {
+    width: 4vw;
     text-align: center;
     border-width: 1px;
     border-color: lightgray;
@@ -46,6 +63,7 @@ h2
 
 .weekButton
 {
+    width: 4vw;
     text-align: center;
     border-width: 1px;
     border-color: lightgray;
@@ -53,6 +71,14 @@ h2
     border-radius: 3px;
     background-color: #CCFFFF;
     color: #000066;
+}
+
+.weekButton > a,
+.weekButton > a:hover,
+.weekButton > a:active
+{
+    text-decoration: none;
+    color: inherit;
 }
 
 .weekButton:hover
@@ -63,17 +89,18 @@ h2
 
 .weekButton:active
 {
+    
     background-color: #006666;
     border-color: black;
 }
 
 .dayCell
-{
+{   
+    vertical-align: top;
     border-width: 1px;
     border-color: black;
     border-style: solid;
     border-radius: 3px;
-    padding: 0px;
 }
 
 .todayCell
@@ -84,7 +111,12 @@ h2
 
 .dayCellContainer
 {
-
+    cursor: default;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 14vh;
+    width: 12vw;
 }
 
 .dayHeader
@@ -94,22 +126,26 @@ h2
     border-color: black;
     border-style: solid;
     border-radius: 3px 3px 0px 0px;
-    font-size: 1.2vw;
+    font-size: 1.2vmax;
     color: #000066;
-}
-
-.appointmentsList 
-{
-
 }
 
 .appointmentItem 
 {
+    width: 100%;
+    display: block;
     border-width: 1px;
     border-color: #009999;
     border-radius: 3px;
     border-style: solid;
-    font-size: 1.1vw;
+    font-size: 1.1vmax;
     color: #009999;
     margin-top: 1px;
+}
+
+.appointmentItem:hover,
+.appointmentItem:focus
+{
+    color: #009999;
+    text-decoration: none;
 }

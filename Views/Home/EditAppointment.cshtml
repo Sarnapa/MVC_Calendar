@@ -31,7 +31,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">Start Time</p>
             <div class="col-md-10">
-                <input data-val="true" data-val-required="The Start Time field is required." name="StartTime" type="time" value="">
+                <input data-val="true" data-val-required="The Start Time field is required." name="StartTime" type="time" value="@Model.StartTime">
                 @Html.ValidationMessageFor(model => model.StartTime)
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">End Time</p>
             <div class="col-md-10">
-                <input data-val="true" data-val-required="The End Time field is required." name="EndTime" type="time" value="">
+                <input data-val="true" data-val-required="The End Time field is required." name="EndTime" type="time" value="@Model.EndTime">
                 @Html.ValidationMessageFor(model => model.EndTime)
             </div>
         </div>

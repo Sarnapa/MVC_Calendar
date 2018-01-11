@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Net;
 using System.Web.Mvc;
 
 namespace MVC_Calendar.Controllers
@@ -41,16 +42,24 @@ namespace MVC_Calendar.Controllers
             return RedirectToAction("Index", new { date = day.AddDays(7) });
         }
 
-        public ActionResult AddAppointment(DateTime day)
+        public ActionResult AddAppointment(DateTime? day)
         {
-            ViewBag.day = day;
+            if (day == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.day = day.Value;
             return View();
         }
 
-        public ActionResult EditAppointment(Guid appointmentID)
+        public ActionResult EditAppointment(Guid? appointmentID)
         {
-            Appointment appointment = _storage.GetAppointment(appointmentID);
             if(appointmentID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = _storage.GetAppointment(appointmentID.Value);
+            if(appointment == null)
             {
                 return RedirectToAction("Index");
             }
