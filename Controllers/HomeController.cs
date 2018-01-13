@@ -23,6 +23,7 @@ namespace MVC_Calendar.Controllers
             Session["userID"] = userID;
             var today = DateTime.Today;
             var firstDate = date ?? CalendarService.GetFirstDateOfWeek(today);
+            Session["firstDate"] = firstDate;
             var weeks = GetWeeks(firstDate);
             var model = new CalendarVM
             {
@@ -31,6 +32,9 @@ namespace MVC_Calendar.Controllers
                 Weeks = weeks,
                 UserID = userID
             };
+            if(Session["errorText"] != null)
+                ViewBag.errorText = Session["errorText"].ToString();
+            Session["errorText"] = "";
             return View(model);
         }
 
@@ -53,7 +57,7 @@ namespace MVC_Calendar.Controllers
             ViewBag.day = day.Value;
             return View();
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddAppointment([Bind(Include = "Title, Description, StartTime, EndTime")]Appointment appointment, DateTime day)
@@ -62,7 +66,7 @@ namespace MVC_Calendar.Controllers
             {
                 appointment.AppointmentDate = day;
                 _storage.CreateAppointment(Session["userID"].ToString(), appointment);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", (DateTime)Session["firstDate"]);
             }
             ViewBag.day = day;
             return View();
@@ -75,11 +79,46 @@ namespace MVC_Calendar.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Appointment appointment = _storage.GetAppointment(appointmentID.Value);
+            Session["appointment"] = appointment;
             if(appointment == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", (DateTime)Session["firstDate"]);
             }
             return View(appointment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAppointment([Bind(Include = "AppointmentID, AppointmentDate, Title, Description, StartTime, EndTime, timestamp")]Appointment newAppointment)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    _storage.UpdateAppointment(newAppointment);
+                }
+                catch(Exception e)
+                {
+                    Session["errorText"] = e.Message;
+                    return RedirectToAction("Index", (DateTime)Session["firstDate"]);
+                }
+                return RedirectToAction("Index", (DateTime)Session["firstDate"]);
+            }
+            return View((Appointment)Session["appointment"]);
+        }
+
+        public ActionResult DeleteAppointment()
+        {
+            try
+            {
+                _storage.DeleteAppointment((Appointment)Session["appointment"], Session["userID"].ToString());
+            }
+            catch(Exception e)
+            {
+                Session["errorText"] = e.Message;
+                return RedirectToAction("Index", (DateTime)Session["firstDate"]);
+            }
+            return RedirectToAction("Index", (DateTime)Session["firstDate"]);
         }
 
         private List<Week> GetWeeks(DateTime day)

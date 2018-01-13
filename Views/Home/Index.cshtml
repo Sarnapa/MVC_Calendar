@@ -5,6 +5,9 @@
 }
 
 <h2>Welcome @Model.UserID</h2>
+<div class="errorText">
+    @ViewBag.errorText
+</div>
 
 <table class="calendar">
     <tbody>
@@ -41,7 +44,7 @@
                                 <a class="appointmentItem" href=@Url.Action("EditAppointment", "Home", new { appointmentID = appointment.AppointmentID })>
                                     @Html.ValueFor(m => appointment.StartTime, "{0:hh\\:mm} - ")
                                     @Html.ValueFor(m => appointment.EndTime, "{0:hh\\:mm}")
-                                    @Html.ValueFor(m => appointment.Description)
+                                    @Html.ValueFor(m => appointment.Title)
                                 </a>
                             }
                         </div>

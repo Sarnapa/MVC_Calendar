@@ -11,6 +11,7 @@ namespace MVC_Calendar.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Attendance
     {
@@ -21,7 +22,9 @@ namespace MVC_Calendar.Models
 
         [Key]
         public System.Guid AttendanceID { get; set; }
+        [ForeignKey("Appointment")]
         public System.Guid AppointmentID { get; set; }
+        [ForeignKey("Person")]
         public System.Guid PersonID { get; set; }
         public bool Accepted { get; set; }
         [Timestamp]

@@ -15,6 +15,12 @@ h2
     font-size: 2vmax;
 }
 
+.errorText
+{
+    color: #df1515;
+    margin: auto;
+}
+
 .calendar 
 {
     vertical-align: middle;

@@ -1,22 +1,24 @@
 ﻿@model MVC_Calendar.Models.Appointment
 
-
 @{
     ViewBag.Title = "Edit appointment";
 }
 
+<h2>Date: @Model.AppointmentDate.ToString("dd MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.AppointmentID)
+        @Html.HiddenFor(model => model.AppointmentDate)
+        @Html.HiddenFor(model => model.timestamp)
 
         <div class="form-group">
             <p class="control-label col-md-2">Title</p>
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Title, new { maxlength = "16" })
-                @Html.ValidationMessageFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -24,7 +26,7 @@
             <p class="control-label col-md-2">Description</p>
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Description, new { maxlength = "50" })
-                @Html.ValidationMessageFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -32,7 +34,7 @@
             <p class="control-label col-md-2">Start Time</p>
             <div class="col-md-10">
                 <input data-val="true" data-val-required="The Start Time field is required." name="StartTime" type="time" value="@Model.StartTime">
-                @Html.ValidationMessageFor(model => model.StartTime)
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -40,7 +42,7 @@
             <p class="control-label col-md-2">End Time</p>
             <div class="col-md-10">
                 <input data-val="true" data-val-required="The End Time field is required." name="EndTime" type="time" value="@Model.EndTime">
-                @Html.ValidationMessageFor(model => model.EndTime)
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -49,7 +51,7 @@
                 <input type="submit" value="Edit appointment" class="btn btn-default" />
             </div>
             <div class="col-md-10 min-content">
-                <a href=@Url.Action("DeleteAppointment", "Home", new { appointmentID = @Model.AppointmentID }) class="btn btn-danger">Delete</a>
+                <a href=@Url.Action("DeleteAppointment", "Home") class="btn btn-danger">Delete</a>
             </div>
         </div>
 

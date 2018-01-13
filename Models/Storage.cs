@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MVC_Calendar.Models
@@ -44,7 +45,7 @@ namespace MVC_Calendar.Models
                 attendance.AppointmentID = appointment.AppointmentID;
                 db.Attendances.Add(attendance);
                 db.SaveChanges();
-                //Logger.Log.Info("Saved new appointment to database.");
+                Logger.Log.Info("Saved new appointment to database.");
             }
         }
 
@@ -64,47 +65,52 @@ namespace MVC_Calendar.Models
                     try
                     {
                         db.SaveChanges();
-                        //Logger.Log.Info("Saved modified appointment to database.");
+                        Logger.Log.Info("Saved modified appointment to database.");
                     }
                     // ktos wczesniej nadpisal dane, a my ich nie pobralismy - nie akceptujemy naszej zmiany
                     catch (DbUpdateConcurrencyException)
                     {
-                        //Logger.Log.Error("Modifying appointment failure due to overwriting data by another user.");
+                        Logger.Log.Error("Modifying appointment failure due to overwriting data by another user.");
                         throw new Exception("Modifying appointment failure due to overwriting data by another user.");
                     }
                 }
                 else
                 {
-                    //Logger.Log.Error("Modifying appointment failure due to removing appointment by another user.");
+                    Logger.Log.Error("Modifying appointment failure due to removing appointment by another user.");
                     throw new Exception("Modifying appointment failure due to removing appointment by another user.");
                 }
 
             }
         }
 
-        public void DeleteAppointment(Appointment appointment)
+        public void DeleteAppointment(Appointment appointment, String userID)
         {
             using (var db = new StorageContext())
             {
                 var original = db.Appointments.Find(appointment.AppointmentID);
                 if (original != null)
                 {
-                    db.Appointments.Remove(original);
+                    var allAttendances = db.Attendances.Where(a => a.AppointmentID.Equals(appointment.AppointmentID));
+                    var originalAttendance = allAttendances.FirstOrDefault(a => a.Person.UserID.Equals(userID));
+                    if(originalAttendance != null)
+                        db.Attendances.Remove(originalAttendance);
+                    if(allAttendances.Count() <= 1)
+                        db.Appointments.Remove(original);
                     db.Entry(original).OriginalValues["timestamp"] = appointment.timestamp;
                     try
                     {
                         db.SaveChanges();
-                        //Logger.Log.Info("Remove appointment from database.");
+                        Logger.Log.Info("Remove appointment from database.");
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        //Logger.Log.Error("Removing appointment failure due to overwriting data by another user.");
+                        Logger.Log.Error("Removing appointment failure due to overwriting data by another user.");
                         throw new Exception("Removing appointment failure due to overwriting data by another user.");
                     }
                 }
                 else
                 {
-                    //Logger.Log.Error("Removing appointment failure due to removing appointment by another user.");
+                    Logger.Log.Error("Removing appointment failure due to removing appointment by another user.");
                     throw new Exception("Removing appointment failure due to removing appointment by another user.");
                 }
 
