@@ -8,6 +8,7 @@ namespace MVC_Calendar.Models
 {
     public class Storage
     {
+
         public List<Appointment> GetDayAppointments(String userID, DateTime day)
         {
             using (var db = new StorageContext())
