@@ -19,7 +19,7 @@ namespace MVC_Calendar.Controllers
             // to disable migration
             Database.SetInitializer<StorageContext>(null);
             // so far
-            String userID = "janusz";
+            String userID = "adama";
             Session["userID"] = userID;
             var today = DateTime.Today;
             var firstDate = date ?? CalendarService.GetFirstDateOfWeek(today);
@@ -40,11 +40,13 @@ namespace MVC_Calendar.Controllers
 
         public ActionResult PrevWeek(DateTime day)
         {
+            Logger.Log.Info("Get previous week.");
             return RedirectToAction("Index", new { date = day.AddDays(-7) });
         }
 
         public ActionResult NextWeek(DateTime day)
         {
+            Logger.Log.Info("Get next week.");
             return RedirectToAction("Index", new { date = day.AddDays(7) });
         }
 

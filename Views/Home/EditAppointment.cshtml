@@ -47,13 +47,23 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10 min-content">
-                <input type="submit" value="Edit appointment" class="btn btn-default" />
-            </div>
-            <div class="col-md-10 min-content">
-                <a href=@Url.Action("DeleteAppointment", "Home") class="btn btn-danger">Delete</a>
-            </div>
-        </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="col-md-10 min-content">
+                                <input type="submit" value="Edit appointment" class="btn btn-default" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-10 min-content">
+                                <a href=@Url.Action("DeleteAppointment", "Home") class="btn btn-danger">Delete appointment</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
 
     </div>
 }

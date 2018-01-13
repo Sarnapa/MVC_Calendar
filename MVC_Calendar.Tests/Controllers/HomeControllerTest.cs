@@ -19,7 +19,7 @@ namespace MVC_Calendar.Tests.Controllers
             TestControllerBuilder builder = new TestControllerBuilder();
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             ViewResult result = controller.Index(null) as ViewResult;
             Assert.IsNotNull(result);
         }
@@ -32,7 +32,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -48,7 +48,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -66,7 +66,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -84,7 +84,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -103,7 +103,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -121,7 +121,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
@@ -140,7 +140,7 @@ namespace MVC_Calendar.Tests.Controllers
             HomeController controller = new HomeController();
             builder.InitializeController(controller);
             var today = DateTime.Today;
-            controller.HttpContext.Session["userID"] = "janusz";
+            controller.HttpContext.Session["userID"] = "adama";
             controller.HttpContext.Session["firstDate"] = CalendarService.GetFirstDateOfWeek(today);
             var appointment = CreateAppointment(today);
             controller.AddAppointment(appointment, today);
